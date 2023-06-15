@@ -6,8 +6,35 @@
   - `npm run test-palindrome`
 */
 
-function isPalindrome(str) {
-  return true;
+
+function reverseAdnClear(str) {
+  const String = str.split("");
+  const reversedString = String.reverse();
+  const newString = reversedString.join("");;
+  const pattern = /["!?,.:{} ]/g;
+  const cleanedString = newString.replace(pattern, "").toLowerCase();
+  return cleanedString;
+};
+
+function cleanString(str) {
+  const pattern = /["!?,.:{} ]/g;
+  const cleanedString = str.replace(pattern, "").toLowerCase();
+  return cleanedString;
 }
 
+function isPalindrome(str) {
+  string1 = reverseAdnClear(str);
+  string2 = cleanString(str);
+  
+
+  if (string1 === string2) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+
 module.exports = isPalindrome;
+
