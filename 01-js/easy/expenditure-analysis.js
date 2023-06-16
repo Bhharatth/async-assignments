@@ -8,21 +8,34 @@
   - `npm run test-expenditure-analysis`
 */
 
+
 function calculateTotalSpentByCategory(transactions) {
-  let categories ={};
-
- transactions.forEach(transaction => {
-  const {category,price} = transaction;
-
-  if(categories[category]){
-    categories[category] +=price
-    
-  }else {
-    categories[category] = price
-  }
+  const spendEstimates = {};
   
- });
-    
-  return [categories];
-}
+    for(let i = 0; i<transactions.length; i++){
+      let t = transactions[i];
+  
+      if(spendEstimates[t.category]){
+        spendEstimates[t.category] = spendEstimates[t.category] + t.price;
+        
+      }else{
+        spendEstimates[t.category] = 0;
+        spendEstimates[t.category] =  spendEstimates[t.category] + t.price;
+        
+      }
+    }
+    let keys = Object.keys(spendEstimates);
+  
+    let answer = [];
+    for(let i = 0; i<keys.length; i++){
+      let category = keys[i]
+     let obj ={
+      category: category,
+        totalSpend: spendEstimates[category],
+      }
+    answer.push(obj);
+    }
+  return answer;
+  };
+
 module.exports = calculateTotalSpentByCategory;
