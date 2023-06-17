@@ -17,42 +17,54 @@ const { error } = require("console");
 const fs = require("fs");
 const { resolve } = require("path");
 
-function readFiles() {
-  return new Promise((resolve, rejects) => {
-    fs.readFile("file.txt", "utf8", (error, data) => {
-      if (error) {
-        console.error(error);
-        rejects(error);
-        return;
-      }
-      resolve(data);
-    });
-  });
-}
+function printFile(err, data) {
+  if(err){
+    console.error(err)
+    return;
+  };
+  return data
+};
 
-function writeFiles(content) {
-  return new Promise((resolve, rejects) => {
-    fs.writeFile("file.txt", content, "utf8", (error, data) => {
-      if (error) {
-        console.log("error");
-        rejects(error);
-        return;
-      }
-      console.log("file writed successfully");
-      resolve(data);
-    });
-  });
-}
+function clean(data){
+  let array = data.split(" ");
+  let DataArray = [];
 
-function fileCleaner() {
-  readFiles().then((data) => {
-    if (data) {
-      const outputString = data.replace(/\s+/g, " ");
-      return writeFiles(outputString);
-    } else {
-      console.log("the file is empty");
+  for(let i =0; i < array.length; i++){
+    if(array[i].length == 0){
+      
+    }else{
+      DataArray.push(array[i]);
     }
-  });
+  }
+  const answerStrings = DataArray.join(" ");
+  console.log(answerStrings)
+  return answerStrings;
 }
 
-fileCleaner();
+function afterFileUpdated(err){
+  if(err){
+    console.error(err);
+    return
+  }
+  console.log("done")
+}
+
+
+
+function fileRead(err, data){
+  if(err){
+    console.error(err)
+  return;
+  }
+  let cleanData = clean(data);
+  console.log(cleanData);
+
+  fs.writeFile("file.txt", cleanData, "utf8", afterFileUpdated);
+}
+
+
+fs.readFile("file.txt",  "utf8", fileRead)
+
+
+
+
