@@ -6,35 +6,41 @@
   - `npm run test-palindrome`
 */
 
-
-function reverseAdnClear(str) {
-  const String = str.split("");
-  const reversedString = String.reverse();
-  const newString = reversedString.join("");;
-  const pattern = /["!?,.:{} ]/g;
-  const cleanedString = newString.replace(pattern, "").toLowerCase();
-  return cleanedString;
+function reverseAndClear(str) {
+  var answer = "";
+  for(let i = str.length -1 ; i >= 0; i --){
+    answer += str[i];
+  }
+  return answer;
+  
 };
 
-function cleanString(str) {
-  const pattern = /["!?,.:{} ]/g;
-  const cleanedString = str.replace(pattern, "").toLowerCase();
-  return cleanedString;
+function transformString(str) {
+  let answer = "";
+  for (let i = 0;i <str.length;i++){
+    if(str[i]=== " "|| str[i]===","|| str[i]==="."|| str[i]==="?" || str[i]==="!"){
+      
+    }else{
+      answer += str[i];
+    }
+  }
+  return answer;
 }
 
-function isPalindrome(str) {
-  string1 = reverseAdnClear(str);
-  string2 = cleanString(str);
-  
 
-  if (string1 === string2) {
+function isPalindrome(str) {
+  let string = str.toLowerCase();
+      string= transformString(string);
+  let reversedString = reverseAndClear(string);
+console.log(reversedString)
+console.log(string)
+
+  if (reversedString === string) {
+    console.log("its a palientdrome")
     return true;
   } else {
+       console.log("its not a palientdrome")
     return false;
   }
 }
-
-
-
-module.exports = isPalindrome;
-
+isPalindrome()
